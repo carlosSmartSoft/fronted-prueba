@@ -1,0 +1,90 @@
+<div>
+  <h1 class="text-center font-bold py-2 text-gray-700">Registrar Asesor</h1>
+  <form [formGroup]="form" novalidate class="space-y-4" (ngSubmit)="register()">
+    <div>
+      <div class="relative">
+        <input
+          formControlName="code"
+          placeholder="Enter your code"
+          type="number"
+          name="code"
+          class="w-full rounded bg-gray-100 border-gray-300 border-2"
+        />
+      </div>
+      <div *ngIf="form.controls.code.touched && form.controls.code.invalid">
+        <p
+          *ngIf="form.controls.code.hasError('required')"
+          class="font-medium text-red-500 text-xs mt-1 ml-1"
+        >
+          This field is mandatory
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="relative">
+        <input
+          #nameInput
+          formControlName="name"
+          placeholder="Enter name"
+          type="text"
+          name="name"
+          autocomplete="off"
+          class="w-full rounded bg-gray-100 border-gray-300 border-2"
+        />
+      </div>
+      <div *ngIf="form.controls.name.touched && form.controls.name.invalid">
+        <p
+          *ngIf="form.controls.name.hasError('required')"
+          class="font-medium text-red-500 text-xs mt-1 ml-1"
+        >
+          This field is mandatory
+        </p>
+        <p
+          *ngIf="form.controls.name.hasError('name')"
+          class="font-medium text-red-500 text-xs mt-1 ml-1"
+        >
+          This field should be a name
+        </p>
+      </div>
+    </div>
+    <div>
+      <div class="relative">
+        <input
+          formControlName="password"
+          placeholder="Enter password"
+          [type]="showPassword ? 'text' : 'password'"
+          class="w-full rounded bg-gray-100 border-gray-300 border-2"
+        />
+        <button
+          type="button"
+          class="p-2 absolute right-2"
+          (click)="showPassword = !showPassword"
+        >
+          <fa-icon [icon]="showPassword ? faEye : faEyeSlash"></fa-icon>
+        </button>
+      </div>
+      <div
+        *ngIf="form.controls.password.touched && form.controls.password.invalid"
+      >
+        <p
+          *ngIf="form.controls.password.hasError('required')"
+          class="font-medium text-red-500 text-xs mt-1 ml-1"
+        >
+          This field is mandatory
+        </p>
+        <p
+          *ngIf="form.controls.password.hasError('minlength')"
+          class="font-medium text-red-500 text-xs mt-1 ml-1"
+        >
+          This field should be greater than 8 characters
+        </p>
+      </div>
+    </div>
+    <div>
+      <app-btn typeBtn="submit" color="success" [loading]="status === 'loading'"
+        >Register</app-btn
+      >
+    </div>
+  </form>
+</div>

@@ -1,0 +1,117 @@
+<div class="p-10">
+  <h1 class="text-center font-bold py-4">Tabla de Clientes</h1>
+  <div class="mat-elevation-z8 border border-black">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <!-- CODE Column -->
+      <ng-container matColumnDef="Code">
+        <th mat-header-cell *matHeaderCellDef class="font-extrabold font-sans">
+          Codigo
+        </th>
+        <td mat-cell *matCellDef="let user">{{ user.code }}</td>
+      </ng-container>
+
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="fullName">
+        <th mat-header-cell *matHeaderCellDef class="font-extrabold font-sans">
+          Nombre Completo
+        </th>
+        <td mat-cell *matCellDef="let user">{{ user.fullName }}</td>
+      </ng-container>
+
+      <!-- Ganancias Column -->
+      <ng-container matColumnDef="income">
+        <th mat-header-cell *matHeaderCellDef class="font-extrabold font-sans">
+          Ingresos
+        </th>
+        <td mat-cell *matCellDef="let user">
+          {{ user.income == "" ? "Sin información" : user.income }}
+        </td>
+      </ng-container>
+
+      <!-- Edad Column -->
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef class="font-extrabold font-sans">
+          Edad
+        </th>
+        <td mat-cell *matCellDef="let user">
+          {{ user.age == "" ? "No hay edad registrada" : user.age }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef class="font-extrabold font-sans">
+          Ciudad
+        </th>
+        <td mat-cell *matCellDef="let user">
+          {{ user.city == "" ? "No hay ciudad registrada" : user.city }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="recommendation">
+        <th mat-header-cell *matHeaderCellDef class="font-extrabold font-sans">
+          Recomendacion
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let user"
+          [ngClass]="getRecommendationClass(user.age, user.city, user.income)"
+        >
+          {{ getRecommendation(user.age, user.city, user.income) }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="font-extrabold font-sans">
+          Acciones
+        </th>
+        <td mat-cell *matCellDef="let user">
+          <button class="px-2" (click)="updateDialog(user)">
+            <fa-icon [icon]="faPenAlt" class="text-yellow-500"></fa-icon>
+          </button>
+          <button (click)="delete(user.code)">
+            <fa-icon [icon]="faTrashAlt" class="text-red-500"></fa-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+  <div class="py-2">
+    <button
+      (click)="openDialog()"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Crear Cliente
+    </button>
+  </div>
+
+  <div class="text-center font-bold py-4">Lista de servicios</div>
+  <div *ngIf="service.length > 0" class="flex grid-cols-2">
+    <div
+      *ngFor="let item of service"
+      class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
+      <a href="#">
+        <h5
+          class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
+        >
+          Codigo: {{ item.code }}
+        </h5>
+      </a>
+
+      <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">
+        <a class="font-bold">Nombre: </a>{{ item.name }}
+      </p>
+      <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">
+        <a class="font-bold">Descripción: </a> {{ item.description }}
+      </p>
+    </div>
+  </div>
+</div>

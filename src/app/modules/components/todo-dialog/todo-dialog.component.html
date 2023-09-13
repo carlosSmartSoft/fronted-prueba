@@ -1,0 +1,182 @@
+<div
+  class="p-6 bg-gray-100 relative rounded shadow mr-52 w-1/2 h-full sm:mx-96 lg:mx-96 2xl:mx-96"
+  style="z-index: 1000"
+>
+  <button (click)="exit()" class="">
+    <fa-icon [icon]="faX" class="text-red-500"></fa-icon>
+  </button>
+  <h1 class="text-center font-bold py-2 text-gray-700">
+    {{ clientData.created == true ? "Crear un Cliente" : "Editar un Cliente" }}
+  </h1>
+  <form
+    [formGroup]="form"
+    novalidate
+    class="space-y-4"
+    (ngSubmit)="clientData.created ? create() : update()"
+  >
+    <div *ngIf="clientData.created == true">
+      <div class="grid grid-cols-2 gap-4 xl:gap-6 lg:grid-cols-1">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Codigo</label>
+          <div class="relative">
+            <input
+              formControlName="code"
+              placeholder="Enter code"
+              type="number"
+              name="code"
+              class="w-full rounded bg-gray-100 border-gray-300 border-2"
+            />
+          </div>
+          <div *ngIf="form.controls.code.touched && form.controls.code.invalid">
+            <p
+              *ngIf="form.controls.code.hasError('required')"
+              class="font-medium text-red-500 text-xs mt-1 ml-1"
+            >
+              code is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 xl:gap-6 lg:grid-cols-1">
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Nombre Completo</label
+          >
+          <div class="relative">
+            <input
+              formControlName="fullName"
+              placeholder="Enter fullName"
+              type="text"
+              name="fullName"
+              class="w-full rounded bg-gray-100 border-gray-300 border-2"
+            />
+          </div>
+          <div
+            *ngIf="
+              form.controls.fullName.touched && form.controls.fullName.invalid
+            "
+          >
+            <p
+              *ngIf="form.controls.fullName.hasError('required')"
+              class="font-medium text-red-500 text-xs mt-1 ml-1"
+            >
+              name is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 xl:gap-6 lg:grid-cols-1">
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Contraseña de acceso</label
+          >
+          <div class="relative">
+            <input
+              formControlName="passwordAccess"
+              placeholder="Enter passwordAccess"
+              type="text"
+              name="passwordAccess"
+              class="w-full rounded bg-gray-100 border-gray-300 border-2"
+            />
+          </div>
+          <div
+            *ngIf="
+              form.controls.passwordAccess.touched &&
+              form.controls.passwordAccess.invalid
+            "
+          >
+            <p
+              *ngIf="form.controls.passwordAccess.hasError('required')"
+              class="font-medium text-red-500 text-xs mt-1 ml-1"
+            >
+              password is required
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="clientData.created != true">
+      <div class="grid grid-cols-2 gap-4 xl:gap-6 lg:grid-cols-1">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Edad</label>
+          <div class="relative">
+            <input
+              formControlName="age"
+              placeholder="Enter age"
+              type="string"
+              name="age"
+              class="w-full rounded bg-gray-100 border-gray-300 border-2"
+            />
+          </div>
+          <div *ngIf="form.controls.age.touched && form.controls.age.invalid">
+            <p
+              *ngIf="form.controls.age.hasError('required')"
+              class="font-medium text-red-500 text-xs mt-1 ml-1"
+            >
+              age is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 xl:gap-6 lg:grid-cols-1">
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Ingresos</label
+          >
+          <div class="relative">
+            <input
+              formControlName="income"
+              placeholder="Enter income"
+              type="text"
+              name="income"
+              class="w-full rounded bg-gray-100 border-gray-300 border-2"
+            />
+          </div>
+          <div
+            *ngIf="form.controls.income.touched && form.controls.income.invalid"
+          >
+            <p
+              *ngIf="form.controls.income.hasError('required')"
+              class="font-medium text-red-500 text-xs mt-1 ml-1"
+            >
+              income is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 xl:gap-6 lg:grid-cols-1">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Ciudad</label>
+          <div class="relative">
+            <input
+              formControlName="city"
+              placeholder="Enter city"
+              type="text"
+              name="city"
+              class="w-full rounded bg-gray-100 border-gray-300 border-2"
+            />
+          </div>
+          <div *ngIf="form.controls.city.touched && form.controls.city.invalid">
+            <p
+              *ngIf="form.controls.city.hasError('required')"
+              class="font-medium text-red-500 text-xs mt-1 ml-1"
+            >
+              city is required
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      type="submit"
+    >
+      {{ clientData.created ? "Crear Cliente" : "Actulizar Cliente" }}
+    </button>
+  </form>
+</div>
